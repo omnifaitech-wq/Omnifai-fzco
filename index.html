@@ -2,45 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OmnifaiLabs – AI Business Suite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="OmnifaiLabs – All your business tools. One intelligent platform. AI-powered business suite for HR, Finance, Sales, Projects, Compliance and more.">
+  <title>Omnifai – AI Business Suite & OmniChatbot</title>
+  <meta name="description" content="Omnifai helps UAE & GCC businesses automate operations with the AI Business Suite and convert conversations to customers with OmniChatbot." />
 
   <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #020617;
-      --bg-soft: #020617;
-      --card-bg: rgba(15,23,42,0.92);
-      --accent: #6366f1;
-      --accent-2: #ec4899;
-      --accent-soft: rgba(99,102,241,0.18);
-      --border-soft: rgba(148,163,184,0.4);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
+      --bg: #050816;
+      --bg-soft: #0d1020;
+      --accent: #ff007a;
+      --accent-soft: rgba(255, 0, 122, 0.15);
+      --accent-2: #5f5bff;
+      --text-main: #ffffff;
+      --text-muted: #b5bfd7;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 24px 40px rgba(0, 0, 0, 0.45);
       --radius-lg: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 18px 50px rgba(15,23,42,0.9);
-      --container-width: 1120px;
-      --transition-fast: 180ms ease-out;
+      --radius-full: 999px;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1a1b3a 0, #050816 55%);
       color: var(--text-main);
       line-height: 1.6;
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
     a {
@@ -53,1041 +48,869 @@
       display: block;
     }
 
-    .page {
-      min-height: 100vh;
-      position: relative;
-      z-index: 1;
-    }
-
     .container {
       width: 100%;
-      max-width: var(--container-width);
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 0 1.6rem;
+      padding: 0 1.5rem;
     }
 
-    /* Background blobs */
-
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.55;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .blob-1 {
-      width: 380px;
-      height: 380px;
-      background: #4f46e5;
-      top: -80px;
-      left: -60px;
-      animation: blob1 20s ease-in-out infinite alternate;
-    }
-
-    .blob-2 {
-      width: 480px;
-      height: 480px;
-      background: #ec4899;
-      bottom: -140px;
-      right: -80px;
-      animation: blob2 24s ease-in-out infinite alternate;
-    }
-
-    @keyframes blob1 {
-      0% { transform: translate3d(0,0,0) scale(1); }
-      100% { transform: translate3d(80px,50px,0) scale(1.15); }
-    }
-
-    @keyframes blob2 {
-      0% { transform: translate3d(0,0,0) scale(1.05); }
-      100% { transform: translate3d(-70px,-40px,0) scale(1.18); }
-    }
-
-    /* Navbar */
-
-    .nav {
+    /* NAVBAR */
+    .navbar {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(2,6,23,0.94), rgba(2,6,23,0.6), transparent);
-      border-bottom: 1px solid rgba(15,23,42,0.6);
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.85));
+      border-bottom: 1px solid var(--border-soft);
     }
 
-    .nav-inner {
+    .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.9rem 0;
     }
 
-    .nav-left {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.55rem;
     }
 
-    .logo-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 25% 20%, #e5e7eb, #4f46e5);
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #fff 0, #444 32%, #050816 72%);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-logo::after {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid #ffffff;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      opacity: 0.8;
+    }
+
+    .brand-text-main {
       font-weight: 700;
+      letter-spacing: 0.06em;
       font-size: 0.9rem;
-      color: #020617;
-      box-shadow: 0 9px 26px rgba(15,23,42,0.85);
+      text-transform: uppercase;
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.05rem;
-    }
-
-    .brand-text span:first-child {
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-text span:last-child {
-      font-size: 0.72rem;
+    .brand-text-sub {
+      font-size: 0.7rem;
       color: var(--text-muted);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.4rem;
-      font-size: 0.88rem;
+      gap: 1.5rem;
+      font-size: 0.85rem;
     }
 
     .nav-links a {
       color: var(--text-muted);
-      transition: color var(--transition-fast), transform var(--transition-fast);
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.25rem;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.25s ease;
     }
 
     .nav-links a:hover {
-      color: #e5e7eb;
-      transform: translateY(-1px);
+      color: #ffffff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     .nav-cta {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: radial-gradient(circle at top left, rgba(255, 0, 122, 0.18), rgba(255, 0, 122, 0.02));
+      font-size: 0.8rem;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.6rem 1.4rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      font-size: 0.82rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      background: transparent;
-      color: var(--text-main);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #4f46e5);
-      box-shadow: 0 12px 34px rgba(79,70,229,0.7);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 18px 42px rgba(79,70,229,0.9);
-    }
-
-    .btn-ghost {
-      border-color: var(--border-soft);
-      background: rgba(15,23,42,0.85);
-      color: var(--text-muted);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: #e5e7eb;
-    }
-
-    .nav-toggle {
+    .menu-toggle {
       display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 24px;
+      cursor: pointer;
     }
 
-    /* Hero */
+    .menu-toggle span {
+      height: 2px;
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+    /* HERO */
+    main {
+      padding-bottom: 6rem;
+    }
 
     .hero {
-      padding: 3.2rem 0 4rem;
+      padding: 4rem 0 3rem;
     }
 
-    .hero-inner {
+    .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 2.6rem;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2rem;
       align-items: center;
     }
 
-    .eyebrow {
+    .hero-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.2rem 0.85rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.85);
-      font-size: 0.72rem;
+      gap: 0.55rem;
+      padding: 0.25rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(to right, rgba(11, 15, 40, 0.85), rgba(26, 20, 60, 0.95));
+      font-size: 0.7rem;
       color: var(--text-muted);
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
+    .hero-pill span.tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px #22c55e;
+      background: var(--accent-soft);
+      color: #ffdff0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
     }
 
     .hero-title {
-      font-size: clamp(2.5rem, 4vw, 3.3rem);
-      line-height: 1.08;
-      letter-spacing: 0.01em;
+      font-size: clamp(2.15rem, 3vw + 1rem, 3.1rem);
+      line-height: 1.05;
       margin-bottom: 1rem;
+      letter-spacing: -0.03em;
     }
 
-    .hero-gradient {
-      background: linear-gradient(115deg, #e5e7eb, #a5b4fc, #f9a8d4);
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #ffffff, #ffc7ea);
       -webkit-background-clip: text;
       color: transparent;
     }
 
     .hero-subtitle {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       color: var(--text-muted);
-      max-width: 460px;
-      margin-bottom: 1.8rem;
+      max-width: 32rem;
+      margin-bottom: 1.4rem;
     }
 
-    .hero-actions {
+    .hero-subtitle span {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .hero-cta-row {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 0.9rem;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.35rem;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: radial-gradient(circle at 0 0, #ffd6f1 0, var(--accent) 38%, #d100ff 75%);
+      color: #ffffff;
+      box-shadow: 0 18px 32px rgba(255, 0, 122, 0.45);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 22px 40px rgba(255, 0, 122, 0.6);
+    }
+
+    .btn-ghost {
+      padding: 0.7rem 1.2rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(191, 199, 255, 0.3);
+      background: rgba(14, 18, 50, 0.8);
+      color: #d1d7ff;
+      font-size: 0.86rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(40, 48, 120, 0.95);
+      border-color: rgba(191, 199, 255, 0.7);
+      color: #ffffff;
+    }
+
+    .btn-ghost span.icon {
+      font-size: 1rem;
+      transform: translateY(1px);
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.3rem;
+      gap: 1.5rem;
       font-size: 0.78rem;
       color: var(--text-muted);
     }
 
-    .hero-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
+    .hero-meta strong {
+      color: #ffffff;
+      font-weight: 500;
     }
 
-    .hero-meta span::before {
-      content: "●";
-      font-size: 0.5rem;
-      color: var(--accent);
-    }
-
-    /* Hero visual */
-
-    .hero-visual {
+    .hero-right {
       position: relative;
     }
 
     .hero-card {
       position: relative;
-      padding: 1.6rem;
       border-radius: 24px;
-      background: radial-gradient(circle at top left, rgba(129,140,248,0.25), rgba(15,23,42,0.97));
-      border: 1px solid rgba(148,163,184,0.5);
+      background: radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.14) 0, #050816 45%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 1.4rem 1.6rem;
       box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .orb {
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #111827 32%, #050816 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .orb-face {
+      width: 76px;
+      height: 76px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #555 40%, #050816 78%);
+      position: relative;
       overflow: hidden;
     }
 
-    .hero-card-title {
-      font-size: 0.9rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .hero-card-sub {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .pill {
-      padding: 0.2rem 0.7rem;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148,163,184,0.4);
-      background: rgba(15,23,42,0.9);
-      font-size: 0.68rem;
-      color: var(--text-muted);
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.8rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .metric {
-      padding: 0.7rem 0.75rem;
-      border-radius: 14px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(148,163,184,0.35);
-    }
-
-    .metric-label {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .metric-value {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .sparkline {
-      margin-top: 0.35rem;
-      height: 14px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(148,163,253,0.3), rgba(52,211,153,0.8));
-    }
-
-    .floating-tag {
+    .orb-face::before,
+    .orb-face::after {
+      content: "";
       position: absolute;
-      top: -8px;
-      right: -8px;
-      padding: 0.4rem 0.9rem;
-      border-radius: var(--radius-pill);
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(148,163,184,0.55);
-      font-size: 0.68rem;
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+    .orb-face::before {
+      width: 9px;
+      height: 9px;
+      top: 26px;
+      left: 16px;
+      box-shadow: 35px 0 0 #ffffff;
+    }
+
+    .orb-face::after {
+      width: 36px;
+      height: 18px;
+      border-radius: 999px;
+      border: 4px solid #ffffff;
+      border-top: none;
+      left: 19px;
+      top: 40px;
+    }
+
+    .chat-bubble {
+      position: absolute;
+      right: 36%;
+      top: 14%;
+      max-width: 180px;
+      padding: 0.6rem 0.75rem;
+      border-radius: 16px;
+      font-size: 0.76rem;
+      background: #7c3aed;
+      color: #f0e9ff;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .chat-bubble.secondary {
+      top: 32%;
+      right: 10%;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .badge-built {
+      position: absolute;
+      left: 1.6rem;
+      bottom: 1.4rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      box-shadow: 0 14px 36px rgba(15,23,42,0.9);
-      animation: floatTag 5s ease-in-out infinite alternate;
+      padding: 0.3rem 0.8rem;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.7rem;
+      color: #e5e7eb;
     }
 
-    .floating-tag-dot {
+    .badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px #22c55e;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
     }
 
-    @keyframes floatTag {
-      0% { transform: translate3d(0,0,0); opacity: 0.94; }
-      100% { transform: translate3d(-10px,10px,0); opacity: 1; }
-    }
-
-    /* Sections */
-
+    /* PRODUCTS */
     section {
-      padding: 3.5rem 0;
-      position: relative;
-      z-index: 1;
+      padding: 3rem 0;
     }
 
     .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
       margin-bottom: 2rem;
     }
 
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      color: var(--accent);
+    .section-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.4rem;
-    }
-
-    .section-label::before {
-      content: "";
-      width: 22px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.6;
+      color: var(--accent-soft);
     }
 
     .section-title {
-      font-size: 1.7rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      max-width: 560px;
-    }
-
-    /* Solutions section */
-
-    .solutions-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.5rem;
-    }
-
-    .solution-card {
-      padding: 1.2rem 1.2rem 1.4rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.3);
-      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.94));
-      box-shadow: 0 14px 40px rgba(15,23,42,0.8);
-      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background 200ms ease-out;
-    }
-
-    .solution-card:hover {
-      transform: translateY(-5px) scale(1.01);
-      border-color: rgba(129,140,248,0.7);
-      box-shadow: 0 20px 55px rgba(15,23,42,0.9);
-      background: radial-gradient(circle at top left, rgba(129,140,248,0.24), rgba(15,23,42,0.98));
-    }
-
-    .solution-tag {
-      font-size: 0.7rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.4rem;
-    }
-
-    .solution-title {
-      font-size: 0.98rem;
-      margin-bottom: 0.2rem;
+      font-size: 1.4rem;
       font-weight: 600;
     }
 
-    .solution-body {
-      font-size: 0.82rem;
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 30rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.6rem;
+    }
+
+    .product-card {
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), rgba(9, 10, 23, 0.96));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 1.4rem 1.5rem 1.6rem;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-tag {
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(148, 163, 255, 0.12);
+      color: #c7d2ff;
+      margin-bottom: 0.7rem;
+    }
+
+    .product-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .product-desc {
+      font-size: 0.87rem;
       color: var(--text-muted);
       margin-bottom: 0.9rem;
     }
 
-    .solution-meta {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    /* Modules section */
-
-    .modules-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 1.8rem;
-      align-items: flex-start;
-    }
-
-    .modules-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .module-pill {
-      padding: 0.7rem 0.8rem;
-      border-radius: 14px;
-      border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.9);
-      font-size: 0.78rem;
-    }
-
-    .module-pill-title {
-      font-weight: 500;
-      margin-bottom: 0.1rem;
-    }
-
-    .module-pill-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .modules-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.7rem;
-    }
-
-    .modules-card {
-      padding: 1.2rem 1.3rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.96);
-      box-shadow: var(--shadow-soft);
-      font-size: 0.8rem;
-    }
-
-    .modules-card ul {
+    .product-list {
       list-style: none;
-      padding-left: 0;
+      font-size: 0.82rem;
+      color: #e5e7ff;
+      display: grid;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
     }
 
-    .modules-card li {
-      margin-bottom: 0.35rem;
+    .product-list li::before {
+      content: "•";
+      margin-right: 0.4rem;
+      color: var(--accent);
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    .modules-card li span {
-      color: #e5e7eb;
-      font-weight: 500;
+    .pill-link {
+      font-size: 0.78rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 255, 0.5);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(15, 23, 42, 0.9);
     }
 
-    /* Why section */
-
-    .why-grid {
+    /* FEATURES */
+    .features-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1.4rem;
     }
 
-    .why-card {
-      padding: 1rem 1rem 1.2rem;
-      border-radius: 16px;
-      border: 1px solid rgba(148,163,184,0.28);
-      background: rgba(15,23,42,0.96);
-      font-size: 0.8rem;
-      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    .feature-card {
+      background: rgba(12, 15, 40, 0.9);
+      border-radius: 14px;
+      padding: 1.1rem 1.1rem 1.2rem;
+      border: 1px solid rgba(31, 41, 88, 0.9);
+      font-size: 0.82rem;
     }
 
-    .why-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(129,140,248,0.7);
-    }
-
-    .why-title {
-      font-size: 0.9rem;
-      margin-bottom: 0.2rem;
-      font-weight: 500;
-    }
-
-    .why-body {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-
-    /* How it works */
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.3rem;
-    }
-
-    .step-card {
-      padding: 1rem 1.1rem;
-      border-radius: 16px;
-      border: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.95);
-      font-size: 0.8rem;
-    }
-
-    .step-number {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-
-    .step-title {
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
-      font-weight: 500;
-    }
-
-    .step-body {
-      color: var(--text-muted);
-    }
-
-    /* Contact */
-
-    .contact-card {
-      padding: 1.4rem 1.5rem;
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.96);
-      box-shadow: var(--shadow-soft);
-      max-width: 640px;
-    }
-
-    .contact-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      margin-top: 0.8rem;
-      font-size: 0.9rem;
-    }
-
-    .contact-item {
-      display: inline-flex;
-      flex-direction: column;
-      gap: 0.1rem;
-    }
-
-    .contact-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
+    .feature-label {
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
+      color: #9ca3ff;
     }
 
-    .contact-value {
+    .feature-title {
       font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
     }
 
-    /* Footer */
+    .feature-desc {
+      color: var(--text-muted);
+    }
+
+    /* CONTACT / FOOTER */
+    .contact-card {
+      margin-top: 1rem;
+      background: rgba(10, 12, 32, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 1.7rem 1.6rem;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .contact-details strong {
+      color: #ffffff;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .contact-form label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .contact-input {
+      margin-top: 0.15rem;
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .contact-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255, 0, 122, 0.4);
+    }
+
+    .contact-textarea {
+      border-radius: 16px;
+      min-height: 80px;
+      resize: vertical;
+    }
 
     .footer {
-      padding: 2.3rem 0;
-      border-top: 1px solid rgba(15,23,42,0.7);
-      font-size: 0.78rem;
+      border-top: 1px solid var(--border-soft);
+      padding: 1.3rem 0 1.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
+      text-align: center;
     }
 
-    .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-    }
-
-    .footer-links a {
-      color: var(--text-muted);
-      transition: color var(--transition-fast);
-      font-size: 0.78rem;
-    }
-
-    .footer-links a:hover {
-      color: #e5e7eb;
-    }
-
-    /* Scroll reveal */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 260ms ease-out, transform 260ms ease-out;
-    }
-
-    .reveal-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Responsive */
-
-    @media (max-width: 900px) {
-      .hero-inner {
+    /* RESPONSIVE */
+    @media (max-width: 880px) {
+      .hero-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-      .hero {
-        padding-top: 2.4rem;
+
+      .hero-right {
+        order: -1;
       }
-      .solutions-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .modules-layout {
+
+      .products-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-      .why-grid {
+
+      .features-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .steps-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .contact-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        min-height: 260px;
       }
     }
 
     @media (max-width: 640px) {
-      .nav-links {
-        display: none;
+      .navbar-inner {
+        padding: 0.7rem 0;
       }
+
+      .nav-links {
+        position: fixed;
+        inset: 48px 0 auto 0;
+        padding: 0.9rem 1.5rem 1.3rem;
+        background: rgba(3, 7, 18, 0.98);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9rem;
+        transform: translateY(-150%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
       .nav-cta {
         display: none;
       }
-      .hero-title {
-        font-size: 2.2rem;
+
+      .hero {
+        padding-top: 3rem;
       }
-      .solutions-grid {
+
+      .hero-card {
+        padding: 1.2rem 1.1rem;
+      }
+
+      .chat-bubble {
+        right: 18%;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .features-grid {
         grid-template-columns: minmax(0, 1fr);
       }
-      .modules-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .why-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .steps-grid {
-        grid-template-columns: minmax(0, 1fr);
+
+      .menu-toggle {
+        display: flex;
       }
     }
   </style>
 </head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
 
-  <div class="page">
-    <!-- NAVBAR -->
-    <header class="nav">
-      <div class="container nav-inner">
-        <div class="nav-left">
-          <div class="logo-circle">O</div>
-          <div class="brand-text">
-            <span>OmnifaiLabs</span>
-            <span>AI Business Suite</span>
-          </div>
-        </div>
-        <nav class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#modules">Modules</a>
-          <a href="#why">Why us</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div class="nav-cta">
-          <a href="#contact" class="btn btn-ghost">Book a demo</a>
-          <a href="#contact" class="btn btn-primary">Talk to us</a>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <div class="brand-text-main">Omnifai</div>
+          <div class="brand-text-sub">AI for real business</div>
         </div>
       </div>
-    </header>
 
+      <nav>
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#home">Home</a>
+          <a href="#products">Products</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+          <a class="nav-cta" href="#contact">Book a demo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
     <!-- HERO -->
     <section id="home" class="hero">
-      <div class="container hero-inner">
-        <div class="reveal">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            <span>AI-native business OS for the Gulf</span>
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-pill">
+            <span class="tag">New</span>
+            <span>AI Business Suite + OmniChatbot</span>
           </div>
-          <h1 class="hero-title hero-gradient">
-            All your business tools.<br />
-            One intelligent platform.
+
+          <h1 class="hero-title">
+            Run your business on <span class="highlight">autopilot</span> with AI.
           </h1>
+
           <p class="hero-subtitle">
-            OmnifaiLabs connects HR, Payroll, Finance, Sales, Projects and Compliance
-            into a single AI-powered suite – designed for UAE & GCC businesses that
-            want to move faster with fewer tools.
+            <span>Omnifai</span> gives you two powerful products:
+            <span>AI Business Suite</span> to manage operations, HR, finance & projects,
+            and <span>OmniChatbot</span> to convert your WhatsApp, Instagram, Facebook and website conversations into customers.
           </p>
-          <div class="hero-actions">
-            <a href="#solutions" class="btn btn-primary">Explore AI Business Suite</a>
-            <a href="#modules" class="btn btn-ghost">View all modules</a>
+
+          <div class="hero-cta-row">
+            <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
+              Explore products
+            </button>
+            <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <span class="icon">▶</span>
+              Book a free demo
+            </button>
           </div>
+
           <div class="hero-meta">
-            <span>AI-native from day one</span>
-            <span>Built for SMEs & Enterprises</span>
-            <span>UAE payroll, WPS & VAT ready</span>
+            <div><strong>Built for UAE & GCC SMEs</strong><br />Local labor law & VAT focused.</div>
+            <div><strong>Multi-language support</strong><br />EN / AR / ML / HI.</div>
           </div>
         </div>
 
-        <div class="hero-visual reveal">
+        <div class="hero-right">
           <div class="hero-card">
-            <div class="floating-tag">
-              <span class="floating-tag-dot"></span>
-              <span>Real-time AI insights enabled</span>
+            <div class="chat-bubble">
+              Hello! Ready to grow your business?
             </div>
-            <div class="hero-card-title">AI CEO Snapshot</div>
-            <div class="hero-card-sub">Today’s health across HR • Finance • Sales</div>
-            <div class="pill-row">
-              <div class="pill">Attendance & Payroll</div>
-              <div class="pill">Invoices & Cashflow</div>
-              <div class="pill">Leads & Deals</div>
+            <div class="chat-bubble secondary">
+              Absolutely. I’ll capture leads and send them to your CRM automatically.
             </div>
-            <div class="metric-grid">
-              <div class="metric">
-                <div class="metric-label">This month revenue</div>
-                <div class="metric-value">AED 248,900</div>
-                <div class="sparkline"></div>
-              </div>
-              <div class="metric">
-                <div class="metric-label">Payroll forecast</div>
-                <div class="metric-value">AED 92,300</div>
-                <div class="sparkline"></div>
-              </div>
-              <div class="metric">
-                <div class="metric-label">Attendance health</div>
-                <div class="metric-value">97.4% ✓</div>
-                <div class="sparkline"></div>
-              </div>
-              <div class="metric">
-                <div class="metric-label">AI risk alerts</div>
-                <div class="metric-value">0 critical</div>
-                <div class="sparkline"></div>
-              </div>
+
+            <div class="orb">
+              <div class="orb-face"></div>
             </div>
-            <div class="pill-row">
-              <div class="pill">One login</div>
-              <div class="pill">One source of truth</div>
-              <div class="pill">AI copilots everywhere</div>
+
+            <div class="badge-built">
+              <div class="badge-dot"></div>
+              <span>OmniChatbot by Omnifai</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SOLUTIONS -->
-    <section id="solutions">
+    <!-- PRODUCTS -->
+    <section id="products">
       <div class="container">
-        <div class="section-header reveal">
-          <div class="section-label">Solutions</div>
-          <h2 class="section-title">An AI-native suite for the real world.</h2>
+        <div class="section-header">
+          <div class="section-kicker">Products</div>
+          <h2 class="section-title">Two AI products. One Omnifai platform.</h2>
           <p class="section-subtitle">
-            OmnifaiLabs replaces 5–10 disconnected tools with a single AI business
-            platform – from onboarding and attendance to invoicing, projects and audit.
+            Start with the AI Business Suite to run your operations, add OmniChatbot to convert traffic on WhatsApp, Instagram, Facebook and your website.
           </p>
         </div>
 
-        <div class="solutions-grid">
-          <div class="solution-card reveal">
-            <div class="solution-tag">Workforce & HR</div>
-            <div class="solution-title">AI Attendance, HR & Payroll</div>
-            <div class="solution-body">
-              Face + GPS attendance, AI shift planning, HR documents, UAE payroll, WPS
-              and end-of-service forecasting.
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <article class="product-card">
+            <div class="product-tag">
+              <span class="dot"></span>
+              AI Business Suite
             </div>
-            <div class="solution-meta">Modules: AI Attendance • HRMS • Shift & Leave • Payroll & WPS</div>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-tag">Finance & Accounting</div>
-            <div class="solution-title">Billing, Accounting & Expense Intelligence</div>
-            <div class="solution-body">
-              Smart invoicing, auto-categorised expenses, AI-assisted bookkeeping and
-              predictive cashflow insights for decision makers.
-            </div>
-            <div class="solution-meta">Modules: Billing • Accounting • Procurement • Expenses</div>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-tag">Sales & CX</div>
-            <div class="solution-title">AI CRM & Customer Experience</div>
-            <div class="solution-body">
-              Lead scoring, pipeline insights, AI helpdesk and feedback analytics –
-              turning conversations into conversions.
-            </div>
-            <div class="solution-meta">Modules: AI CRM • Marketing Studio • Helpdesk • Voice & Feedback</div>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-tag">Projects & Ops</div>
-            <div class="solution-title">Projects, Workflows & Documents</div>
-            <div class="solution-body">
-              AI-powered planning, approvals and automation – so teams execute faster
-              with less manual follow-up.
-            </div>
-            <div class="solution-meta">Modules: Project Manager • Workflow Automator • Doc Collaboration</div>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-tag">Risk & Compliance</div>
-            <div class="solution-title">Security, Compliance & Audit AI</div>
-            <div class="solution-body">
-              From access logs and CCTV patterns to licence expiry, WPS and VAT
-              readiness – always audit-ready.
-            </div>
-            <div class="solution-meta">Modules: Security Guard • Compliance Manager • Audit & CA Intelligence</div>
-          </div>
-          <div class="solution-card reveal">
-            <div class="solution-tag">Collaboration</div>
-            <div class="solution-title">Meetings, Email & Team Chat</div>
-            <div class="solution-body">
-              AI meeting notes, email copilots and team chat that understands your
-              business context across the entire suite.
-            </div>
-            <div class="solution-meta">Modules: OmniMeet • Email Assistant • OmniChat for Teams</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULES -->
-    <section id="modules">
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-label">Modules</div>
-          <h2 class="section-title">26 AI-powered modules. One platform.</h2>
-          <p class="section-subtitle">
-            Executive dashboards, HR, Finance, Sales, Projects, CX, Security,
-            Collaboration and Industry AI – fully connected, not glued together.
-          </p>
-        </div>
-
-        <div class="modules-layout">
-          <div class="modules-grid reveal">
-            <div class="module-pill">
-              <div class="module-pill-title">Executive Intelligence</div>
-              <div class="module-pill-sub">AI CEO Dashboard • AI Insights</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Workforce & HR</div>
-              <div class="module-pill-sub">Attendance • HRMS • Shift & Leave • Visitor • Payroll & WPS</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Finance & Accounting</div>
-              <div class="module-pill-sub">Billing • Accounting • Procurement • Expenses</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Sales & Marketing</div>
-              <div class="module-pill-sub">AI CRM • Marketing Studio • Proposals & Quotes</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Projects & Workflow</div>
-              <div class="module-pill-sub">Project Manager • Workflow Automator • Docs</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Customer Experience</div>
-              <div class="module-pill-sub">Helpdesk • Voice Assistant • Feedback AI</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Security & Compliance</div>
-              <div class="module-pill-sub">Security Guard • Compliance • Audit & CA</div>
-            </div>
-            <div class="module-pill">
-              <div class="module-pill-title">Collaboration & Industry AI</div>
-              <div class="module-pill-sub">OmniMeet • Email • OmniChat • Industry Modules</div>
-            </div>
-          </div>
-
-          <div class="modules-card reveal">
-            <p style="margin-bottom:0.7rem;">
-              <strong>Omni AI Copilot</strong> sits on top of every module – letting you
-              ask natural questions and trigger actions:
+            <h3 class="product-title">Omnifai – AI Business Suite</h3>
+            <p class="product-desc">
+              All your business tools in one intelligent platform. Built for SMEs in UAE & GCC.
             </p>
-            <ul>
-              <li><span>“Show me all staff with abnormal overtime this month.”</span></li>
-              <li><span>“How much is our payroll and revenue forecast next quarter?”</span></li>
-              <li><span>“List invoices pending over 30 days and draft reminders.”</span></li>
-              <li><span>“Summarise this client’s history across CRM, Helpdesk and Payments.”</span></li>
+            <ul class="product-list">
+              <li>AI CEO Dashboard & real-time business insights.</li>
+              <li>AI HRMS, attendance, leave & shift scheduler.</li>
+              <li>Payroll, billing, accounting & inventory with UAE VAT focus.</li>
+              <li>Projects, tasks & workflow automation.</li>
+              <li>Customer support helpdesk & ticketing.</li>
             </ul>
-            <p class="modules-note">
-              Under the hood, a central data platform, audit layer and integration engine
-              keep everything consistent, secure and ready for scale.
+            <div class="product-footer">
+              <span>Perfect for: Operations, HR, Finance, Founders.</span>
+              <button class="pill-link" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Learn more <span>↗</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="product-card">
+            <div class="product-tag">
+              <span class="dot"></span>
+              OmniChatbot
+            </div>
+            <h3 class="product-title">OmniChatbot – AI Chatbot for Social & Web</h3>
+            <p class="product-desc">
+              Turn every chat into a potential customer on WhatsApp, Instagram, Facebook and your website.
             </p>
-          </div>
+            <ul class="product-list">
+              <li>24/7 AI auto-reply assistant for FAQs, services and pricing.</li>
+              <li>Share brochures, catalogs, offers & media automatically.</li>
+              <li>Capture leads and send to CRM, email or Google Sheets.</li>
+              <li>Appointment booking confirmations & reminders.</li>
+              <li>Supports EN / AR / ML / HI for GCC audiences.</li>
+            </ul>
+            <div class="product-footer">
+              <span>Perfect for: Sales, Marketing, Customer Support.</span>
+              <button class="pill-link" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                View chatbot demo <span>▶</span>
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- WHY OMNIFAILABS -->
-    <section id="why">
+    <!-- FEATURES -->
+    <section id="features">
       <div class="container">
-        <div class="section-header reveal">
-          <div class="section-label">Why OmnifaiLabs</div>
-          <h2 class="section-title">Built for founders, finance and field teams.</h2>
-          <p class="section-subtitle">
-            A single platform that finally respects how GCC businesses actually operate –
-            from sites and shifts to VAT, WPS and board-level reporting.
-          </p>
+        <div class="section-header">
+          <div class="section-kicker">Why Omnifai</div>
+          <h2 class="section-title">Made for serious business, not just experiments.</h2>
         </div>
 
-        <div class="why-grid">
-          <div class="why-card reveal">
-            <div class="why-title">AI-native from day one</div>
-            <div class="why-body">
-              Every module is designed around intelligence – not just forms. Predictions,
-              summaries and copilots are built-in, not bolted on.
-            </div>
-          </div>
-          <div class="why-card reveal">
-            <div class="why-title">UAE & GCC ready</div>
-            <div class="why-body">
-              Payroll, WPS, visas, ID expiry and VAT expectations are part of the core
-              design – not an afterthought.
-            </div>
-          </div>
-          <div class="why-card reveal">
-            <div class="why-title">From SME to Enterprise</div>
-            <div class="why-body">
-              Start lean with a few modules and grow into a full-suite setup without
-              changing systems or re-training staff.
-            </div>
-          </div>
-          <div class="why-card reveal">
-            <div class="why-title">Future-proof platform</div>
-            <div class="why-body">
-              A central data layer, integration engine and audit AI keep your operations
-              ready for new regulations, markets and products.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-label">Local-first</div>
+            <h3 class="feature-title">UAE & GCC ready</h3>
+            <p class="feature-desc">
+              Designed with UAE labor law, VAT and local workflows in mind so you can scale confidently.
+            </p>
+          </article>
 
-    <!-- HOW IT WORKS -->
-    <section id="how">
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-label">How it works</div>
-          <h2 class="section-title">From chaos of tools to one intelligent suite.</h2>
-          <p class="section-subtitle">
-            We help you move from spreadsheets, disconnected apps and manual follow-ups
-            into a unified system that actually thinks with you.
-          </p>
-        </div>
+          <article class="feature-card">
+            <div class="feature-label">Multi-channel</div>
+            <h3 class="feature-title">Social + Web in one place</h3>
+            <p class="feature-desc">
+              WhatsApp, Instagram, Facebook & website chat widgets unified into a single AI-driven inbox.
+            </p>
+          </article>
 
-        <div class="steps-grid">
-          <div class="step-card reveal">
-            <div class="step-number">1</div>
-            <div class="step-title">Discovery & Blueprint</div>
-            <div class="step-body">
-              We map your existing workflows – HR, Finance, Sales, Operations – and
-              design your ideal OmnifaiLabs layout.
-            </div>
-          </div>
-          <div class="step-card reveal">
-            <div class="step-number">2</div>
-            <div class="step-title">Implementation & Training</div>
-            <div class="step-body">
-              We configure modules, migrate the needed data and run training so your
-              team actually loves using the system.
-            </div>
-          </div>
-          <div class="step-card reveal">
-            <div class="step-number">3</div>
-            <div class="step-title">AI Optimisation</div>
-            <div class="step-body">
-              We gradually turn on AI features – predictions, alerts, copilots – tuned to
-              your business stage and risk appetite.
-            </div>
-          </div>
+          <article class="feature-card">
+            <div class="feature-label">Automation</div>
+            <h3 class="feature-title">From lead to repeat customer</h3>
+            <p class="feature-desc">
+              Capture leads, qualify, follow-up, and sync to your CRM or spreadsheets automatically.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-label">Intelligence</div>
+            <h3 class="feature-title">AI CEO dashboard</h3>
+            <p class="feature-desc">
+              See revenue, customers, staff and operations insights in one place, updated in real-time.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-label">Flexibility</div>
+            <h3 class="feature-title">Modular & scalable</h3>
+            <p class="feature-desc">
+              Start with one module or product and add more as your business grows, without rebuilding.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-label">Support</div>
+            <h3 class="feature-title">Human + AI support</h3>
+            <p class="feature-desc">
+              Omnifai helps you with onboarding, training and continuous optimisation of your AI flows.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -1095,74 +918,78 @@
     <!-- CONTACT -->
     <section id="contact">
       <div class="container">
-        <div class="section-header reveal">
-          <div class="section-label">Contact</div>
-          <h2 class="section-title">Let’s talk about your stack.</h2>
+        <div class="section-header">
+          <div class="section-kicker">Contact</div>
+          <h2 class="section-title">Book a free consultation with Omnifai.</h2>
           <p class="section-subtitle">
-            Whether you’re upgrading from spreadsheets or replacing a patchwork of tools,
-            OmnifaiLabs can be your operating system for the next decade.
+            Tell us about your business and we’ll show you how the AI Business Suite and OmniChatbot can fit into your workflows.
           </p>
         </div>
 
-        <div class="contact-card reveal">
-          <p>
-            Share a bit about your company, your current tools and where you want to be.
-            We’ll reply with a suggested setup and next steps.
-          </p>
-          <div class="contact-row">
-            <div class="contact-item">
-              <span class="contact-label">Email</span>
-              <span class="contact-value">
-                <a href="mailto:admin@omnifailabs.com">admin@omnifailabs.com</a>
-              </span>
-            </div>
-            <div class="contact-item">
-              <span class="contact-label">WhatsApp</span>
-              <span class="contact-value">
-                <a href="https://wa.me/971526640209" target="_blank">+971 52 664 0209</a>
-              </span>
-            </div>
-            <div class="contact-item">
-              <span class="contact-label">Website</span>
-              <span class="contact-value">
-                <a href="https://www.omnifailabs.com" target="_blank">omnifailabs.com</a>
-              </span>
+        <div class="contact-card">
+          <div>
+            <p>Prefer WhatsApp or email? Reach us directly:</p>
+            <div class="contact-details">
+              <div><strong>Email:</strong> admin@omnifai.com (update if needed)</div>
+              <div><strong>Phone / WhatsApp:</strong> +971 52 664 0209</div>
+              <div><strong>Website:</strong> www.omnifai.com (or your final domain)</div>
             </div>
           </div>
+
+          <form class="contact-form" onsubmit="event.preventDefault(); alert('This is a static demo form. Connect it to your backend or form service.');">
+            <div>
+              <label>
+                Name
+                <input class="contact-input" type="text" placeholder="Your name" required />
+              </label>
+            </div>
+            <div>
+              <label>
+                Company
+                <input class="contact-input" type="text" placeholder="Your company name" />
+              </label>
+            </div>
+            <div>
+              <label>
+                Email
+                <input class="contact-input" type="email" placeholder="you@example.com" required />
+              </label>
+            </div>
+            <div>
+              <label>
+                What do you want to automate?
+                <textarea class="contact-input contact-textarea" placeholder="Tell us briefly about your business and needs..."></textarea>
+              </label>
+            </div>
+            <button class="btn-primary" type="submit">Send message</button>
+          </form>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div>© 2025 OmnifaiLabs – All rights reserved.</div>
-        <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#modules">Modules</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </div>
+  <footer class="footer">
+    © <span id="year"></span> Omnifai. All rights reserved.
+  </footer>
 
   <script>
-    // Simple scroll reveal
-    const revealEls = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
+    // mobile nav
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
 
-    revealEls.forEach((el) => observer.observe(el));
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    // close nav on link click (mobile)
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+      });
+    });
+
+    // year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
