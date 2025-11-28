@@ -1,773 +1,1168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OMNIFATECH | Quantum AI Interface</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>OmnifaiLabs – AI Business Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OmnifaiLabs – All your business tools. One intelligent platform. AI-powered business suite for HR, Finance, Sales, Projects, Compliance and more.">
 
-        :root {
-            --quantum-blue: #00f0ff;
-            --neon-purple: #8a2be2;
-            --cyber-pink: #ff00ff;
-            --matrix-green: #00ff41;
-            --hologram-teal: #00ffcc;
-            --dark-space: #0a0a12;
-            --deep-void: #050508;
-            --ui-glow: 0 0 20px currentColor;
-            --text-glow: 0 0 10px currentColor;
-        }
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-        html {
-            scroll-behavior: smooth;
-        }
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --card-bg: rgba(15,23,42,0.92);
+      --accent: #6366f1;
+      --accent-2: #ec4899;
+      --accent-soft: rgba(99,102,241,0.18);
+      --border-soft: rgba(148,163,184,0.4);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 50px rgba(15,23,42,0.9);
+      --container-width: 1120px;
+      --transition-fast: 180ms ease-out;
+    }
 
-        body {
-            background: var(--deep-void);
-            color: white;
-            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* 3D Canvas Background */
-        #threeCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        /* Glass Morphism Navigation */
-        .glass-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(10, 10, 18, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-decoration: none;
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-        }
+    .page {
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
 
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 1.6rem;
+    }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--quantum-blue);
-            transition: width 0.3s ease;
-        }
+    /* Background blobs */
 
-        .nav-link:hover {
-            color: var(--quantum-blue);
-            text-shadow: var(--text-glow);
-        }
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.55;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+    .blob-1 {
+      width: 380px;
+      height: 380px;
+      background: #4f46e5;
+      top: -80px;
+      left: -60px;
+      animation: blob1 20s ease-in-out infinite alternate;
+    }
 
-        .cta-nav {
-            background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple));
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-        }
+    .blob-2 {
+      width: 480px;
+      height: 480px;
+      background: #ec4899;
+      bottom: -140px;
+      right: -80px;
+      animation: blob2 24s ease-in-out infinite alternate;
+    }
 
-        .cta-nav:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-        }
+    @keyframes blob1 {
+      0% { transform: translate3d(0,0,0) scale(1); }
+      100% { transform: translate3d(80px,50px,0) scale(1.15); }
+    }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 3rem;
-            position: relative;
-            overflow: hidden;
-        }
+    @keyframes blob2 {
+      0% { transform: translate3d(0,0,0) scale(1.05); }
+      100% { transform: translate3d(-70px,-40px,0) scale(1.18); }
+    }
 
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
+    /* Navbar */
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid var(--quantum-blue);
-            color: var(--quantum-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-        }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.94), rgba(2,6,23,0.6), transparent);
+      border-bottom: 1px solid rgba(15,23,42,0.6);
+    }
 
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, var(--quantum-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+    }
 
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
+    .logo-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 25% 20%, #e5e7eb, #4f46e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #020617;
+      box-shadow: 0 9px 26px rgba(15,23,42,0.85);
+    }
 
-        .stat {
-            text-align: center;
-        }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem;
+    }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: block;
-        }
+    .brand-text span:first-child {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
 
-        .stat-label {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
+    .brand-text span:last-child {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
 
-        /* Floating AI Elements */
-        .floating-ai {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 400px;
-            height: 400px;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-size: 0.88rem;
+    }
 
-        .ai-orb {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, var(--quantum-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: float-orb 6s ease-in-out infinite;
-        }
+    .nav-links a {
+      color: var(--text-muted);
+      transition: color var(--transition-fast), transform var(--transition-fast);
+    }
 
-        @keyframes float-orb {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.1); }
-        }
+    .nav-links a:hover {
+      color: #e5e7eb;
+      transform: translateY(-1px);
+    }
 
-        /* Sections */
-        section {
-            padding: 8rem 3rem;
-            position: relative;
-        }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      background: transparent;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
 
-        .section-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      box-shadow: 0 12px 34px rgba(79,70,229,0.7);
+    }
 
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 18px 42px rgba(79,70,229,0.9);
+    }
 
-        /* AI Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .btn-ghost {
+      border-color: var(--border-soft);
+      background: rgba(15,23,42,0.85);
+      color: var(--text-muted);
+    }
 
-        .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: #e5e7eb;
+    }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
+    .nav-toggle {
+      display: none;
+    }
 
-        .service-card:hover::before {
-            left: 100%;
-        }
+    /* Hero */
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--quantum-blue);
-            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
-        }
+    .hero {
+      padding: 3.2rem 0 4rem;
+    }
 
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2.6rem;
+      align-items: center;
+    }
 
-        .service-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.2rem 0.85rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.85);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
 
-        .service-desc {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px #22c55e;
+    }
 
-        /* Neural Network Visualization */
-        .neural-visual {
-            width: 100%;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin: 3rem auto;
-            position: relative;
-            overflow: hidden;
-        }
+    .hero-title {
+      font-size: clamp(2.5rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+      margin-bottom: 1rem;
+    }
 
-        /* Interactive Demo */
-        .demo-section {
-            background: linear-gradient(135deg, rgba(10, 10, 18, 0.9), rgba(5, 5, 8, 0.9));
-            border-radius: 30px;
-            padding: 4rem;
-            margin: 5rem auto;
-            max-width: 1200px;
-            position: relative;
-            overflow: hidden;
-        }
+    .hero-gradient {
+      background: linear-gradient(115deg, #e5e7eb, #a5b4fc, #f9a8d4);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
 
-        .demo-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-bottom: 1.8rem;
+    }
 
-        .demo-visual {
-            width: 100%;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.8rem;
+    }
 
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.3rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
 
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--quantum-blue);
-            border-radius: 50%;
-            animation: float-particle 8s linear infinite;
-            opacity: 0;
-        }
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
 
-        @keyframes float-particle {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    .hero-meta span::before {
+      content: "●";
+      font-size: 0.5rem;
+      color: var(--accent);
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .glass-nav {
-                padding: 1rem;
-            }
+    /* Hero visual */
 
-            .nav-links {
-                display: none;
-            }
+    .hero-visual {
+      position: relative;
+    }
 
-            .hero {
-                padding: 0 1.5rem;
-                text-align: center;
-            }
+    .hero-card {
+      position: relative;
+      padding: 1.6rem;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(129,140,248,0.25), rgba(15,23,42,0.97));
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
 
-            .hero-stats {
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 2rem;
-            }
+    .hero-card-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
 
-            .floating-ai {
-                display: none;
-            }
+    .hero-card-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
 
-            section {
-                padding: 4rem 1.5rem;
-            }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
 
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+    .pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.9);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
 
-            .demo-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
 
-            .demo-section {
-                padding: 2rem;
-            }
-        }
+    .metric {
+      padding: 0.7rem 0.75rem;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.35);
+    }
 
-        /* Advanced Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .metric-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .metric-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
 
-        .glow-text {
-            text-shadow: var(--text-glow);
-        }
+    .sparkline {
+      margin-top: 0.35rem;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(148,163,253,0.3), rgba(52,211,153,0.8));
+    }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+    .floating-tag {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.98);
+      border: 1px solid rgba(148,163,184,0.55);
+      font-size: 0.68rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 14px 36px rgba(15,23,42,0.9);
+      animation: floatTag 5s ease-in-out infinite alternate;
+    }
 
-        ::-webkit-scrollbar-track {
-            background: var(--deep-void);
-        }
+    .floating-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--quantum-blue), var(--neon-purple));
-            border-radius: 10px;
-        }
+    @keyframes floatTag {
+      0% { transform: translate3d(0,0,0); opacity: 0.94; }
+      100% { transform: translate3d(-10px,10px,0); opacity: 1; }
+    }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--neon-purple), var(--quantum-blue));
-        }
-    </style>
+    /* Sections */
+
+    section {
+      padding: 3.5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 560px;
+    }
+
+    /* Solutions section */
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .solution-card {
+      padding: 1.2rem 1.2rem 1.4rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.3);
+      background: linear-gradient(145deg, rgba(15,23,42,0.98), rgba(15,23,42,0.94));
+      box-shadow: 0 14px 40px rgba(15,23,42,0.8);
+      transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background 200ms ease-out;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      border-color: rgba(129,140,248,0.7);
+      box-shadow: 0 20px 55px rgba(15,23,42,0.9);
+      background: radial-gradient(circle at top left, rgba(129,140,248,0.24), rgba(15,23,42,0.98));
+    }
+
+    .solution-tag {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    .solution-title {
+      font-size: 0.98rem;
+      margin-bottom: 0.2rem;
+      font-weight: 600;
+    }
+
+    .solution-body {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .solution-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Modules section */
+
+    .modules-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: flex-start;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .module-pill {
+      padding: 0.7rem 0.8rem;
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(15,23,42,0.9);
+      font-size: 0.78rem;
+    }
+
+    .module-pill-title {
+      font-weight: 500;
+      margin-bottom: 0.1rem;
+    }
+
+    .module-pill-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .modules-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.7rem;
+    }
+
+    .modules-card {
+      padding: 1.2rem 1.3rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.96);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.8rem;
+    }
+
+    .modules-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .modules-card li {
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .modules-card li span {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    /* Why section */
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    .why-card {
+      padding: 1rem 1rem 1.2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.28);
+      background: rgba(15,23,42,0.96);
+      font-size: 0.8rem;
+      transition: transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .why-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(129,140,248,0.7);
+    }
+
+    .why-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+
+    .why-body {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* How it works */
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .step-card {
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.3);
+      background: rgba(15,23,42,0.95);
+      font-size: 0.8rem;
+    }
+
+    .step-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .step-title {
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    .step-body {
+      color: var(--text-muted);
+    }
+
+    /* Contact */
+
+    .contact-card {
+      padding: 1.4rem 1.5rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.96);
+      box-shadow: var(--shadow-soft);
+      max-width: 640px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .contact-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .contact-value {
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+
+    .footer {
+      padding: 2.3rem 0;
+      border-top: 1px solid rgba(15,23,42,0.7);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      transition: color var(--transition-fast);
+      font-size: 0.78rem;
+    }
+
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+
+    /* Scroll reveal */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 260ms ease-out, transform 260ms ease-out;
+    }
+
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero {
+        padding-top: 2.4rem;
+      }
+      .solutions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .modules-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .why-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+      .nav-cta {
+        display: none;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .solutions-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .modules-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .why-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .steps-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Three.js Canvas -->
-    <canvas id="threeCanvas"></canvas>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-    <!-- Floating Particles -->
-    <div class="particles" id="particlesContainer"></div>
-
-    <!-- Navigation -->
-    <nav class="glass-nav">
-        <a href="#" class="logo">OMNIFATECH</a>
-        <div class="nav-links">
-            <a href="#solutions" class="nav-link">Solutions</a>
-            <a href="#technology" class="nav-link">Technology</a>
-            <a href="#innovation" class="nav-link">Innovation</a>
-            <a href="#contact" class="nav-link">Contact</a>
-            <a href="#demo" class="cta-nav">Get Started</a>
+  <div class="page">
+    <!-- NAVBAR -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <div class="nav-left">
+          <div class="logo-circle">O</div>
+          <div class="brand-text">
+            <span>OmnifaiLabs</span>
+            <span>AI Business Suite</span>
+          </div>
         </div>
-    </nav>
+        <nav class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#modules">Modules</a>
+          <a href="#why">Why us</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-cta">
+          <a href="#contact" class="btn btn-ghost">Book a demo</a>
+          <a href="#contact" class="btn btn-primary">Talk to us</a>
+        </div>
+      </div>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-bolt"></i> Next-Gen AI Platform
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>AI-native business OS for the Gulf</span>
+          </div>
+          <h1 class="hero-title hero-gradient">
+            All your business tools.<br />
+            One intelligent platform.
+          </h1>
+          <p class="hero-subtitle">
+            OmnifaiLabs connects HR, Payroll, Finance, Sales, Projects and Compliance
+            into a single AI-powered suite – designed for UAE & GCC businesses that
+            want to move faster with fewer tools.
+          </p>
+          <div class="hero-actions">
+            <a href="#solutions" class="btn btn-primary">Explore AI Business Suite</a>
+            <a href="#modules" class="btn btn-ghost">View all modules</a>
+          </div>
+          <div class="hero-meta">
+            <span>AI-native from day one</span>
+            <span>Built for SMEs & Enterprises</span>
+            <span>UAE payroll, WPS & VAT ready</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-card">
+            <div class="floating-tag">
+              <span class="floating-tag-dot"></span>
+              <span>Real-time AI insights enabled</span>
             </div>
-            <h1 class="hero-title fade-in">
-                Quantum Intelligence
-                <br>
-                <span style="background: linear-gradient(135deg, var(--cyber-pink), var(--matrix-green)); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                    Reimagined
-                </span>
-            </h1>
-            <p class="hero-subtitle fade-in">
-                We're building the future of artificial intelligence with quantum-inspired algorithms 
-                and neural architecture that pushes the boundaries of what's possible.
-            </p>
-            
-            <div class="hero-stats fade-in">
-                <div class="stat">
-                    <span class="stat-number" id="stat1">0</span>
-                    <div class="stat-label">AI Models Deployed</div>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="stat2">0</span>
-                    <div class="stat-label">Neural Parameters</div>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="stat3">0</span>
-                    <div class="stat-label">Quantum Operations/s</div>
-                </div>
+            <div class="hero-card-title">AI CEO Snapshot</div>
+            <div class="hero-card-sub">Today’s health across HR • Finance • Sales</div>
+            <div class="pill-row">
+              <div class="pill">Attendance & Payroll</div>
+              <div class="pill">Invoices & Cashflow</div>
+              <div class="pill">Leads & Deals</div>
             </div>
+            <div class="metric-grid">
+              <div class="metric">
+                <div class="metric-label">This month revenue</div>
+                <div class="metric-value">AED 248,900</div>
+                <div class="sparkline"></div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Payroll forecast</div>
+                <div class="metric-value">AED 92,300</div>
+                <div class="sparkline"></div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Attendance health</div>
+                <div class="metric-value">97.4% ✓</div>
+                <div class="sparkline"></div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">AI risk alerts</div>
+                <div class="metric-value">0 critical</div>
+                <div class="sparkline"></div>
+              </div>
+            </div>
+            <div class="pill-row">
+              <div class="pill">One login</div>
+              <div class="pill">One source of truth</div>
+              <div class="pill">AI copilots everywhere</div>
+            </div>
+          </div>
         </div>
-
-        <div class="floating-ai">
-            <div class="ai-orb"></div>
-        </div>
+      </div>
     </section>
 
-    <!-- AI Solutions Section -->
+    <!-- SOLUTIONS -->
     <section id="solutions">
-        <div class="section-header">
-            <h2 class="section-title">AI Solutions</h2>
-            <p class="section-subtitle">Cutting-edge artificial intelligence solutions for tomorrow's challenges</p>
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Solutions</div>
+          <h2 class="section-title">An AI-native suite for the real world.</h2>
+          <p class="section-subtitle">
+            OmnifaiLabs replaces 5–10 disconnected tools with a single AI business
+            platform – from onboarding and attendance to invoicing, projects and audit.
+          </p>
         </div>
 
-        <div class="services-grid">
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3 class="service-title">Neural Architecture</h3>
-                <p class="service-desc">
-                    Advanced neural networks with billions of parameters, trained on massive datasets 
-                    for unprecedented accuracy and performance.
-                </p>
+        <div class="solutions-grid">
+          <div class="solution-card reveal">
+            <div class="solution-tag">Workforce & HR</div>
+            <div class="solution-title">AI Attendance, HR & Payroll</div>
+            <div class="solution-body">
+              Face + GPS attendance, AI shift planning, HR documents, UAE payroll, WPS
+              and end-of-service forecasting.
             </div>
-
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-atom"></i>
-                </div>
-                <h3 class="service-title">Quantum Machine Learning</h3>
-                <p class="service-desc">
-                    Leveraging quantum computing principles to solve complex optimization problems 
-                    exponentially faster than classical approaches.
-                </p>
+            <div class="solution-meta">Modules: AI Attendance • HRMS • Shift & Leave • Payroll & WPS</div>
+          </div>
+          <div class="solution-card reveal">
+            <div class="solution-tag">Finance & Accounting</div>
+            <div class="solution-title">Billing, Accounting & Expense Intelligence</div>
+            <div class="solution-body">
+              Smart invoicing, auto-categorised expenses, AI-assisted bookkeeping and
+              predictive cashflow insights for decision makers.
             </div>
-
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <h3 class="service-title">Autonomous Systems</h3>
-                <p class="service-desc">
-                    Self-learning AI systems that adapt and evolve in real-time, making intelligent 
-                    decisions without human intervention.
-                </p>
+            <div class="solution-meta">Modules: Billing • Accounting • Procurement • Expenses</div>
+          </div>
+          <div class="solution-card reveal">
+            <div class="solution-tag">Sales & CX</div>
+            <div class="solution-title">AI CRM & Customer Experience</div>
+            <div class="solution-body">
+              Lead scoring, pipeline insights, AI helpdesk and feedback analytics –
+              turning conversations into conversions.
             </div>
-
-            <div class="service-card fade-in">
-                <div class="service-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="service-title">AI Security</h3>
-                <p class="service-desc">
-                    Advanced threat detection and prevention systems powered by machine learning 
-                    algorithms that learn from emerging threats.
-                </p>
+            <div class="solution-meta">Modules: AI CRM • Marketing Studio • Helpdesk • Voice & Feedback</div>
+          </div>
+          <div class="solution-card reveal">
+            <div class="solution-tag">Projects & Ops</div>
+            <div class="solution-title">Projects, Workflows & Documents</div>
+            <div class="solution-body">
+              AI-powered planning, approvals and automation – so teams execute faster
+              with less manual follow-up.
             </div>
+            <div class="solution-meta">Modules: Project Manager • Workflow Automator • Doc Collaboration</div>
+          </div>
+          <div class="solution-card reveal">
+            <div class="solution-tag">Risk & Compliance</div>
+            <div class="solution-title">Security, Compliance & Audit AI</div>
+            <div class="solution-body">
+              From access logs and CCTV patterns to licence expiry, WPS and VAT
+              readiness – always audit-ready.
+            </div>
+            <div class="solution-meta">Modules: Security Guard • Compliance Manager • Audit & CA Intelligence</div>
+          </div>
+          <div class="solution-card reveal">
+            <div class="solution-tag">Collaboration</div>
+            <div class="solution-title">Meetings, Email & Team Chat</div>
+            <div class="solution-body">
+              AI meeting notes, email copilots and team chat that understands your
+              business context across the entire suite.
+            </div>
+            <div class="solution-meta">Modules: OmniMeet • Email Assistant • OmniChat for Teams</div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Interactive Demo Section -->
-    <section id="demo">
-        <div class="demo-section">
-            <div class="section-header">
-                <h2 class="section-title">Experience the Future</h2>
-                <p class="section-subtitle">Interact with our quantum AI interface</p>
-            </div>
-
-            <div class="demo-content">
-                <div class="demo-visual" id="demoVisual">
-                    <!-- AI Visualization will be rendered here -->
-                </div>
-                <div class="demo-controls">
-                    <h3 style="font-size: 1.8rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--quantum-blue), var(--neon-purple)); -webkit-background-clip: text; background-clip: text; color: transparent;">
-                        Quantum Control Panel
-                    </h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">
-                        Adjust the parameters and watch the AI neural network adapt in real-time.
-                    </p>
-                    
-                    <div class="control-group">
-                        <label style="display: block; margin-bottom: 0.5rem; color: var(--quantum-blue);">
-                            Neural Complexity
-                        </label>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="complexitySlider" style="width: 100%;">
-                    </div>
-
-                    <div class="control-group" style="margin-top: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; color: var(--neon-purple);">
-                            Learning Rate
-                        </label>
-                        <input type="range" min="0.1" max="2" step="0.1" value="1" class="slider" id="learningSlider" style="width: 100%;">
-                    </div>
-
-                    <button class="cta-nav" style="margin-top: 2rem; width: 100%;">
-                        <i class="fas fa-play"></i> Activate AI
-                    </button>
-                </div>
-            </div>
+    <!-- MODULES -->
+    <section id="modules">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Modules</div>
+          <h2 class="section-title">26 AI-powered modules. One platform.</h2>
+          <p class="section-subtitle">
+            Executive dashboards, HR, Finance, Sales, Projects, CX, Security,
+            Collaboration and Industry AI – fully connected, not glued together.
+          </p>
         </div>
+
+        <div class="modules-layout">
+          <div class="modules-grid reveal">
+            <div class="module-pill">
+              <div class="module-pill-title">Executive Intelligence</div>
+              <div class="module-pill-sub">AI CEO Dashboard • AI Insights</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Workforce & HR</div>
+              <div class="module-pill-sub">Attendance • HRMS • Shift & Leave • Visitor • Payroll & WPS</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Finance & Accounting</div>
+              <div class="module-pill-sub">Billing • Accounting • Procurement • Expenses</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Sales & Marketing</div>
+              <div class="module-pill-sub">AI CRM • Marketing Studio • Proposals & Quotes</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Projects & Workflow</div>
+              <div class="module-pill-sub">Project Manager • Workflow Automator • Docs</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Customer Experience</div>
+              <div class="module-pill-sub">Helpdesk • Voice Assistant • Feedback AI</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Security & Compliance</div>
+              <div class="module-pill-sub">Security Guard • Compliance • Audit & CA</div>
+            </div>
+            <div class="module-pill">
+              <div class="module-pill-title">Collaboration & Industry AI</div>
+              <div class="module-pill-sub">OmniMeet • Email • OmniChat • Industry Modules</div>
+            </div>
+          </div>
+
+          <div class="modules-card reveal">
+            <p style="margin-bottom:0.7rem;">
+              <strong>Omni AI Copilot</strong> sits on top of every module – letting you
+              ask natural questions and trigger actions:
+            </p>
+            <ul>
+              <li><span>“Show me all staff with abnormal overtime this month.”</span></li>
+              <li><span>“How much is our payroll and revenue forecast next quarter?”</span></li>
+              <li><span>“List invoices pending over 30 days and draft reminders.”</span></li>
+              <li><span>“Summarise this client’s history across CRM, Helpdesk and Payments.”</span></li>
+            </ul>
+            <p class="modules-note">
+              Under the hood, a central data platform, audit layer and integration engine
+              keep everything consistent, secure and ready for scale.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <script>
-        // Initialize Three.js Scene
-        function initThreeJS() {
-            const canvas = document.getElementById('threeCanvas');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            
-            // Create quantum particles
-            const particleGeometry = new THREE.BufferGeometry();
-            const particleCount = 5000;
-            const posArray = new Float32Array(particleCount * 3);
-            
-            for (let i = 0; i < particleCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 50;
-            }
-            
-            particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            
-            const particleMaterial = new THREE.PointsMaterial({
-                size: 0.05,
-                color: new THREE.Color(0x00f0ff),
-                transparent: true,
-                opacity: 0.8
-            });
-            
-            const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
-            scene.add(particlesMesh);
-            
-            camera.position.z = 5;
-            
-            // Animation
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                particlesMesh.rotation.x += 0.001;
-                particlesMesh.rotation.y += 0.002;
-                
-                const positions = particlesMesh.geometry.attributes.position.array;
-                for (let i = 0; i < positions.length; i += 3) {
-                    positions[i + 1] += Math.sin(Date.now() * 0.001 + i) * 0.01;
-                }
-                particlesMesh.geometry.attributes.position.needsUpdate = true;
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
+    <!-- WHY OMNIFAILABS -->
+    <section id="why">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Why OmnifaiLabs</div>
+          <h2 class="section-title">Built for founders, finance and field teams.</h2>
+          <p class="section-subtitle">
+            A single platform that finally respects how GCC businesses actually operate –
+            from sites and shifts to VAT, WPS and board-level reporting.
+          </p>
+        </div>
 
-        // Initialize particles
-        function initParticles() {
-            const container = document.getElementById('particlesContainer');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                particle.style.background = `hsl(${Math.random() * 60 + 180}, 100%, 60%)`;
-                container.appendChild(particle);
-            }
-        }
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <div class="why-title">AI-native from day one</div>
+            <div class="why-body">
+              Every module is designed around intelligence – not just forms. Predictions,
+              summaries and copilots are built-in, not bolted on.
+            </div>
+          </div>
+          <div class="why-card reveal">
+            <div class="why-title">UAE & GCC ready</div>
+            <div class="why-body">
+              Payroll, WPS, visas, ID expiry and VAT expectations are part of the core
+              design – not an afterthought.
+            </div>
+          </div>
+          <div class="why-card reveal">
+            <div class="why-title">From SME to Enterprise</div>
+            <div class="why-body">
+              Start lean with a few modules and grow into a full-suite setup without
+              changing systems or re-training staff.
+            </div>
+          </div>
+          <div class="why-card reveal">
+            <div class="why-title">Future-proof platform</div>
+            <div class="why-body">
+              A central data layer, integration engine and audit AI keep your operations
+              ready for new regulations, markets and products.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Animate statistics
-        function animateStats() {
-            const stat1 = document.getElementById('stat1');
-            const stat2 = document.getElementById('stat2');
-            const stat3 = document.getElementById('stat3');
-            
-            const animateValue = (element, start, end, duration) => {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const value = Math.floor(progress * (end - start) + start);
-                    element.textContent = value.toLocaleString();
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            };
-            
-            setTimeout(() => animateValue(stat1, 0, 127, 2000), 500);
-            setTimeout(() => animateValue(stat2, 0, 542, 2000), 1000);
-            setTimeout(() => animateValue(stat3, 0, 23, 2000), 1500);
-        }
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">How it works</div>
+          <h2 class="section-title">From chaos of tools to one intelligent suite.</h2>
+          <p class="section-subtitle">
+            We help you move from spreadsheets, disconnected apps and manual follow-ups
+            into a unified system that actually thinks with you.
+          </p>
+        </div>
 
-        // Scroll animations
-        function initScrollAnimations() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeInObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            fadeElements.forEach(element => {
-                fadeInObserver.observe(element);
-            });
-        }
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <div class="step-number">1</div>
+            <div class="step-title">Discovery & Blueprint</div>
+            <div class="step-body">
+              We map your existing workflows – HR, Finance, Sales, Operations – and
+              design your ideal OmnifaiLabs layout.
+            </div>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-number">2</div>
+            <div class="step-title">Implementation & Training</div>
+            <div class="step-body">
+              We configure modules, migrate the needed data and run training so your
+              team actually loves using the system.
+            </div>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-number">3</div>
+            <div class="step-title">AI Optimisation</div>
+            <div class="step-body">
+              We gradually turn on AI features – predictions, alerts, copilots – tuned to
+              your business stage and risk appetite.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Initialize everything when page loads
-        window.addEventListener('load', () => {
-            initThreeJS();
-            initParticles();
-            animateStats();
-            initScrollAnimations();
-            
-            // Add interactive effects
-            document.querySelectorAll('.service-card, .cta-nav').forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    element.style.transform = 'translateY(-5px) scale(1.02)';
-                });
-                
-                element.addEventListener('mouseleave', () => {
-                    element.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-label">Contact</div>
+          <h2 class="section-title">Let’s talk about your stack.</h2>
+          <p class="section-subtitle">
+            Whether you’re upgrading from spreadsheets or replacing a patchwork of tools,
+            OmnifaiLabs can be your operating system for the next decade.
+          </p>
+        </div>
+
+        <div class="contact-card reveal">
+          <p>
+            Share a bit about your company, your current tools and where you want to be.
+            We’ll reply with a suggested setup and next steps.
+          </p>
+          <div class="contact-row">
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <span class="contact-value">
+                <a href="mailto:admin@omnifailabs.com">admin@omnifailabs.com</a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">WhatsApp</span>
+              <span class="contact-value">
+                <a href="https://wa.me/971526640209" target="_blank">+971 52 664 0209</a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Website</span>
+              <span class="contact-value">
+                <a href="https://www.omnifailabs.com" target="_blank">omnifailabs.com</a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>© 2025 OmnifaiLabs – All rights reserved.</div>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#modules">Modules</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple scroll reveal
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+            observer.unobserve(entry.target);
+          }
         });
+      },
+      { threshold: 0.12 }
+    );
 
-        // Add parallax effect to hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        });
-    </script>
+    revealEls.forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>
