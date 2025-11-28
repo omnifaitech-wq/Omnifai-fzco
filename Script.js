@@ -1,40 +1,85 @@
-// Simple animations for the website
-document.addEventListener('DOMContentLoaded', function() {
-    // Fade in elements on scroll
-    const fadeElements = document.querySelectorAll('.project-card, .container h2');
-    
-    const fadeInOnScroll = () => {
-        fadeElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            if (elementTop < window.innerHeight - 100) {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }
-        });
-    };
-    
-    // Set initial state
-    fadeElements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+// Mobile Navigation Toggle
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
     });
-    
-    // Check on scroll
-    window.addEventListener('scroll', fadeInOnScroll);
-    fadeInOnScroll(); // Check initially
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+}
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        if (hamburger && navMenu) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
     });
 });
+
+// Scroll animations
+const fadeElements = document.querySelectorAll('.project-card');
+
+const fadeInOnScroll = () => {
+    fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('visible');
+        }
+    });
+};
+
+// Add fade-in class to elements that should animate
+document.addEventListener('DOMContentLoaded', () => {
+    // Trigger initial check
+    fadeInOnScroll();
+});
+
+// Listen for scroll events
+window.addEventListener('scroll', fadeInOnScroll);
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Navbar background on scroll
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+    }
+});
+
+// CTA button animation
+const ctaButton = document.querySelector('.cta-button');
+if (ctaButton) {
+    ctaButton.addEventListener('mouseenter', () => {
+        ctaButton.style.transform = 'translateY(-3px)';
+    });
+    
+    ctaButton.addEventListener('mouseleave', () => {
+        ctaButton.style.transform = 'translateY(0)';
+    });
+}
