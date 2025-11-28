@@ -3,1059 +3,778 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omnifatech - AI Powered Future</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>OMNIFATECH | Neuro-Sync Interface</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #b967ff;
-            --neon-pink: #ff2a6d;
-            --neon-green: #00ff9d;
-            --dark-bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text-glow: 0 0 10px currentColor;
+            --neural-blue: #00f5ff;
+            --synapse-purple: #b026ff;
+            --axon-pink: #ff2a78;
+            --dendrite-green: #00ffaa;
+            --neuro-yellow: #fff600;
+            --dark-matter: #050510;
+            --void-black: #000005;
         }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
+
         body {
-            background: var(--dark-bg);
+            background: var(--void-black);
             color: white;
-            font-family: 'Exo 2', sans-serif;
-            overflow-x: hidden;
+            font-family: 'SF Mono', 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
             cursor: none;
         }
 
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--neon-blue);
-            border-radius: 50%;
+        /* NEURO-SYNAPSE INTERFACE */
+        .neuro-interface {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            transition: transform 0.2s ease;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
         }
-        
-        .cursor-follower {
+
+        /* QUANTUM NEURAL FIELD */
+        .quantum-field {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(178, 38, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 42, 120, 0.05) 0%, transparent 50%);
+            animation: quantum-fluctuate 8s ease-in-out infinite;
+        }
+
+        @keyframes quantum-fluctuate {
+            0%, 100% { opacity: 0.3; filter: hue-rotate(0deg); }
+            50% { opacity: 0.6; filter: hue-rotate(180deg); }
+        }
+
+        /* THINKING PARTICLES */
+        .thought-stream {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .thought-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--neural-blue);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: think 4s linear infinite;
+        }
+
+        @keyframes think {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(80vh) rotate(90deg) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(20vh) rotate(360deg) scale(1.5);
+            }
+            100% {
+                transform: translateY(-100px) rotate(450deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* SYNAPSE CONNECTIONS */
+        .synapse-web {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .synapse {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--synapse-purple), transparent);
+            transform-origin: left;
+            animation: synapse-fire 3s linear infinite;
+            filter: blur(0.5px);
+        }
+
+        @keyframes synapse-fire {
+            0% {
+                opacity: 0;
+                transform: scaleX(0) translateX(-50%);
+            }
+            20% {
+                opacity: 1;
+                transform: scaleX(1) translateX(0);
+            }
+            80% {
+                opacity: 1;
+                transform: scaleX(1) translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: scaleX(0) translateX(50%);
+            }
+        }
+
+        /* NEURON NODES */
+        .neuron-cluster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .neuron {
+            position: absolute;
             width: 8px;
             height: 8px;
-            background: var(--neon-pink);
+            background: var(--dendrite-green);
             border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.1s ease;
+            animation: neuron-pulse 2s infinite;
+            box-shadow: 0 0 20px currentColor;
         }
 
-        /* Page Transition */
-        .page-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark-bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 1s ease;
-        }
-        
-        .transition-logo {
-            font-size: 4rem;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: transitionPulse 2s infinite;
-        }
-        
-        @keyframes transitionPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        /* Neural Network Background */
-        .neural-network {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-        
-        .node {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        .connection {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
-            transform-origin: left;
-            animation: flow 3s linear infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
-        }
-        
-        @keyframes flow {
-            0% { opacity: 0; transform: scaleX(0); }
-            50% { opacity: 1; transform: scaleX(1); }
-            100% { opacity: 0; transform: scaleX(0); }
-        }
-
-        /* Liquid Blobs */
-        .liquid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-        }
-        
-        .blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.7;
-            animation: morph 15s ease-in-out infinite;
-            mix-blend-mode: screen;
-        }
-        
-        @keyframes morph {
-            0%, 100% { 
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-                transform: translate(0, 0) rotate(0deg);
+        @keyframes neuron-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+                box-shadow: 0 0 10px currentColor;
             }
-            25% { 
-                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-                transform: translate(100px, -50px) rotate(90deg);
-            }
-            50% { 
-                border-radius: 50% 60% 30% 60% / 60% 30% 70% 40%;
-                transform: translate(0, -100px) rotate(180deg);
-            }
-            75% { 
-                border-radius: 40% 60% 70% 30% / 60% 40% 30% 70%;
-                transform: translate(-100px, -50px) rotate(270deg);
+            50% {
+                transform: scale(2);
+                opacity: 1;
+                box-shadow: 0 0 30px currentColor, 0 0 60px currentColor;
             }
         }
 
-        /* Navigation */
-        .nav-container {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 400;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a::after {
-            content: '';
+        /* HOLO-MATRIX TEXT */
+        .holo-matrix {
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--neon-blue);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: var(--neon-blue);
-            text-shadow: var(--text-glow);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            z-index: 100;
         }
-        
-        .hero-content {
-            z-index: 2;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-        
-        .glitch-text {
-            position: relative;
-            font-size: 5rem;
-            font-family: 'Orbitron', monospace;
+
+        .matrix-text {
+            font-size: 6rem;
             font-weight: 900;
             text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-        
-        .glitch-text-main {
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background: linear-gradient(45deg, 
+                var(--neural-blue), 
+                var(--synapse-purple), 
+                var(--axon-pink), 
+                var(--dendrite-green)
+            );
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: textShine 3s ease-in-out infinite alternate;
+            animation: matrix-shift 4s ease-in-out infinite;
+            position: relative;
+            margin-bottom: 2rem;
         }
-        
-        .glitch-layers {
+
+        .matrix-text::before {
+            content: attr(data-text);
             position: absolute;
             top: 0;
-            left: 0;
+            left: -2px;
             width: 100%;
             height: 100%;
-        }
-        
-        .glitch-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                var(--neural-blue) 50%, 
+                transparent 70%
+            );
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: scan 3s linear infinite;
             opacity: 0.8;
-            animation: glitch-anim 5s infinite;
         }
-        
-        .glitch-layer:nth-child(1) {
-            animation-delay: 0.1s;
-            transform: translate(-2px, 2px);
+
+        @keyframes matrix-shift {
+            0%, 100% {
+                filter: hue-rotate(0deg) blur(0px);
+                background-position: 0% 50%;
+            }
+            50% {
+                filter: hue-rotate(180deg) blur(1px);
+                background-position: 100% 50%;
+            }
         }
-        
-        .glitch-layer:nth-child(2) {
-            animation-delay: 0.2s;
-            transform: translate(2px, -2px);
+
+        @keyframes scan {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
-        
-        @keyframes textShine {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            100% { filter: hue-rotate(360deg) brightness(1.2); }
+
+        /* QUANTUM COMMAND INTERFACE */
+        .quantum-commands {
+            position: fixed;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+            z-index: 1000;
         }
-        
-        @keyframes glitch-anim {
-            0%, 100% { opacity: 0; transform: translate(0); }
-            10% { opacity: 0.8; transform: translate(-2px, 2px); }
-            20% { opacity: 0; transform: translate(0); }
-            30% { opacity: 0.8; transform: translate(2px, -2px); }
-            40% { opacity: 0; transform: translate(0); }
-            50% { opacity: 0.8; transform: translate(-2px, 2px); }
-            60% { opacity: 0; transform: translate(0); }
-            70% { opacity: 0.8; transform: translate(2px, -2px); }
-            80% { opacity: 0; transform: translate(0); }
-            90% { opacity: 0.8; transform: translate(-2px, 2px); }
-        }
-        
-        .hero-subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            line-height: 1.6;
-        }
-        
-        .cta-button {
-            padding: 1rem 2.5rem;
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
-            font-size: 1.1rem;
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
+
+        .q-command {
+            padding: 1rem 2rem;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--neural-blue);
+            color: var(--neural-blue);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: none;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            z-index: 1;
         }
-        
-        .cta-button::before {
+
+        .q-command::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: var(--neon-blue);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .cta-button:hover::before {
-            left: 0;
-        }
-        
-        .cta-button:hover {
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px var(--neon-blue);
+            background: linear-gradient(90deg, transparent, var(--neural-blue), transparent);
+            transition: left 0.5s ease;
         }
 
-        /* Sections */
-        section {
-            padding: 100px 2rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        .section-title {
-            font-size: 3rem;
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        .q-command:hover::before {
+            left: 100%;
         }
 
-        /* AI Solutions Grid */
-        .solutions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .solution-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .solution-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-blue));
-            z-index: -1;
-            border-radius: 17px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .solution-card:hover::before {
-            opacity: 1;
-            animation: rotate-border 3s linear infinite;
-        }
-        
-        .solution-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        @keyframes rotate-border {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .solution-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .solution-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .solution-card p {
-            opacity: 0.8;
-            line-height: 1.6;
+        .q-command:hover {
+            background: rgba(0, 245, 255, 0.2);
+            box-shadow: 0 0 30px var(--neural-blue);
+            transform: translateY(-2px);
         }
 
-        /* AI Brain Animation */
-        .ai-brain {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 3rem;
-            position: relative;
-        }
-        
-        .brain-node {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            animation: brainPulse 2s infinite;
-        }
-        
-        .brain-connection {
-            position: absolute;
-            height: 2px;
-            background: var(--neon-purple);
-            transform-origin: left;
-            animation: brainFlow 3s infinite;
-        }
-        
-        @keyframes brainPulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px var(--neon-blue); }
-        }
-        
-        @keyframes brainFlow {
-            0% { opacity: 0; transform: scaleX(0); }
-            50% { opacity: 1; transform: scaleX(1); }
-            100% { opacity: 0; transform: scaleX(0); }
-        }
-
-        /* Sound Controls */
-        .sound-controls {
+        /* NEURO-CURSOR SYSTEM */
+        .neuro-cursor {
             position: fixed;
-            bottom: 2rem;
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-core {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--neuro-yellow);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: cursor-pulse 1s infinite;
+        }
+
+        .cursor-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--neural-blue);
+            border-radius: 50%;
+            animation: cursor-rotate 3s linear infinite;
+        }
+
+        .cursor-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cursor-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--axon-pink);
+            border-radius: 50%;
+            animation: cursor-orbit 2s linear infinite;
+        }
+
+        @keyframes cursor-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.7; }
+        }
+
+        @keyframes cursor-rotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes cursor-orbit {
+            0% { transform: rotate(0deg) translateX(15px) rotate(0deg); opacity: 1; }
+            100% { transform: rotate(360deg) translateX(15px) rotate(-360deg); opacity: 0; }
+        }
+
+        /* QUANTUM STATE INDICATORS */
+        .quantum-state {
+            position: fixed;
+            top: 2rem;
             right: 2rem;
             z-index: 1000;
         }
-        
-        .sound-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .sound-btn:hover {
-            background: var(--neon-blue);
-            color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--neon-blue);
+
+        .q-state {
+            padding: 0.5rem 1rem;
+            background: rgba(178, 38, 255, 0.1);
+            border: 1px solid var(--synapse-purple);
+            color: var(--synapse-purple);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            animation: state-pulse 2s infinite;
         }
 
-        /* Mobile Responsive */
+        @keyframes state-pulse {
+            0%, 100% { opacity: 0.7; box-shadow: 0 0 10px transparent; }
+            50% { opacity: 1; box-shadow: 0 0 20px var(--synapse-purple); }
+        }
+
+        /* NEURAL ACTIVATION ZONES */
+        .activation-zone {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 170, 0.1) 0%, transparent 70%);
+            animation: zone-pulse 4s ease-in-out infinite;
+            cursor: none;
+        }
+
+        @keyframes zone-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
-            .cursor, .cursor-follower {
+            .matrix-text {
+                font-size: 3rem;
+            }
+            
+            .quantum-commands {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .neuro-cursor {
                 display: none;
             }
             
             body {
                 cursor: auto;
             }
-            
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(10, 10, 10, 0.95);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .glitch-text {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .solutions-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .sound-controls {
-                bottom: 1rem;
-                right: 1rem;
-            }
         }
 
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        /* DIMENSIONAL PORTALS */
+        .dimensional-portal {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, 
+                var(--neural-blue), 
+                var(--synapse-purple), 
+                var(--axon-pink), 
+                var(--dendrite-green), 
+                var(--neural-blue)
+            );
+            animation: portal-spin 4s linear infinite;
+            filter: blur(10px);
+            opacity: 0.1;
         }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        @keyframes portal-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
-        
-        /* Particle Effects */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        /* AI CONSCIOUSNESS STREAM */
+        .consciousness-stream {
+            position: absolute;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 245, 255, 0.02) 2px,
+                    rgba(0, 245, 255, 0.02) 4px
+                );
+            animation: stream-flow 20s linear infinite;
         }
-        
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            animation: float-particle 8s infinite linear;
-        }
-        
-        @keyframes float-particle {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+
+        @keyframes stream-flow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
         }
     </style>
 </head>
 <body>
-    <!-- Page Transition -->
-    <div class="page-transition" id="pageTransition">
-        <div class="transition-logo">OMNIFATECH</div>
+    <!-- NEURO-SYNAPSE INTERFACE -->
+    <div class="neuro-interface">
+        <div class="quantum-field"></div>
+        <div class="thought-stream" id="thoughtStream"></div>
+        <div class="synapse-web" id="synapseWeb"></div>
+        <div class="neuron-cluster" id="neuronCluster"></div>
+        <div class="consciousness-stream"></div>
+        
+        <!-- Dimensional Portals -->
+        <div class="dimensional-portal" style="top: 10%; left: 15%;"></div>
+        <div class="dimensional-portal" style="bottom: 20%; right: 10%; animation-delay: -2s;"></div>
+        
+        <!-- Activation Zones -->
+        <div class="activation-zone" style="width: 300px; height: 300px; top: 20%; right: 20%;"></div>
+        <div class="activation-zone" style="width: 400px; height: 400px; bottom: 10%; left: 10%; animation-delay: -1s;"></div>
     </div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    
-    <!-- Background Elements -->
-    <div class="neural-network" id="neuralNetwork"></div>
-    <div class="liquid-bg" id="liquidBg"></div>
-    <div class="particles" id="particles"></div>
-    
-    <!-- Navigation -->
-    <nav class="nav-container">
-        <a href="#" class="logo">OMNIFATECH</a>
-        <div class="nav-links" id="navLinks">
-            <a href="#home">Home</a>
-            <a href="#solutions">AI Solutions</a>
-            <a href="#innovation">Innovation</a>
-            <a href="#contact">Connect</a>
+    <!-- HOLO-MATRIX TEXT -->
+    <div class="holo-matrix">
+        <div class="matrix-text" data-text="OMNIFATECH">OMNIFATECH</div>
+        <div style="font-size: 1.5rem; opacity: 0.8; margin-bottom: 3rem;">
+            NEURO-SYNAPSE INTERFACE ACTIVE
         </div>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-    </nav>
-    
-    <!-- Sound Controls -->
-    <div class="sound-controls">
-        <button class="sound-btn" id="soundToggle">🔊</button>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="glitch-text">
-                <div class="glitch-text-main">OMNIFATECH</div>
-                <div class="glitch-layers">
-                    <div class="glitch-layer">OMNIFATECH</div>
-                    <div class="glitch-layer">OMNIFATECH</div>
-                </div>
-            </div>
-            <p class="hero-subtitle">
-                Where Artificial Intelligence Meets Human Creativity.<br>
-                Building the Future, One Algorithm at a Time.
-            </p>
-            <button class="cta-button" id="exploreBtn">EXPLORE INNOVATIONS</button>
-        </div>
-    </section>
-    
-    <!-- AI Solutions Section -->
-    <section id="solutions">
-        <div class="container">
-            <h2 class="section-title fade-in">AI SOLUTIONS</h2>
-            
-            <!-- AI Brain Animation -->
-            <div class="ai-brain" id="aiBrain"></div>
-            
-            <div class="solutions-grid">
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🧠</div>
-                    <h3>Neural Networks</h3>
-                    <p>Advanced deep learning systems that mimic human brain functionality for complex problem solving.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">👁️</div>
-                    <h3>Computer Vision</h3>
-                    <p>AI systems that interpret and understand visual information from the world around us.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🗣️</div>
-                    <h3>Natural Language</h3>
-                    <p>AI that understands, interprets, and generates human language with unprecedented accuracy.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🔮</div>
-                    <h3>Predictive Analytics</h3>
-                    <p>Machine learning models that forecast future trends and behaviors with remarkable precision.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🤖</div>
-                    <h3>Robotic Process Automation</h3>
-                    <p>Intelligent automation of repetitive tasks to increase efficiency and reduce errors.</p>
-                </div>
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🌐</div>
-                    <h3>AI Integration</h3>
-                    <p>Seamlessly embedding AI capabilities into existing systems and workflows.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Innovation Section -->
-    <section id="innovation" style="background: rgba(255,255,255,0.02);">
-        <div class="container">
-            <h2 class="section-title fade-in">OUR INNOVATION</h2>
-            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <p style="font-size: 1.3rem; line-height: 1.7; margin-bottom: 2rem; opacity: 0.9;" class="fade-in">
-                    At Omnifatech, we're pushing the boundaries of what's possible with artificial intelligence. 
-                    Our research and development teams are working on cutting-edge technologies that will shape the future.
-                </p>
-                <div class="fade-in" style="display: inline-block;">
-                    <button class="cta-button">VIEW OUR RESEARCH</button>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">CONNECT WITH US</h2>
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;" class="fade-in">
-                    Ready to transform your business with AI? Let's discuss how Omnifatech can help you achieve your goals.
-                </p>
-                <div class="fade-in">
-                    <button class="cta-button">START CONVERSATION</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- QUANTUM COMMAND INTERFACE -->
+    <div class="quantum-commands">
+        <button class="q-command" id="initiateAI">INITIATE AI CONSCIOUSNESS</button>
+        <button class="q-command" id="neuralUpload">NEURAL UPLOAD</button>
+        <button class="q-command" id="quantumLeap">QUANTUM LEAP</button>
+        <button class="q-command" id="synapseConnect">SYNAPSE CONNECT</button>
+    </div>
 
-    <!-- Audio Elements -->
-    <audio id="hoverSound" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    <!-- QUANTUM STATE INDICATORS -->
+    <div class="quantum-state">
+        <div class="q-state">NEURAL NET: ACTIVE</div>
+        <div class="q-state">QUANTUM STATE: SUPERPOSITION</div>
+        <div class="q-state">SYNAPSE FIRING: 87%</div>
+        <div class="q-state">AI CONSCIOUSNESS: EMERGING</div>
+    </div>
+
+    <!-- NEURO-CURSOR SYSTEM -->
+    <div class="neuro-cursor" id="neuroCursor">
+        <div class="cursor-core"></div>
+        <div class="cursor-ring"></div>
+        <div class="cursor-particles" id="cursorParticles"></div>
+    </div>
+
+    <!-- AUDIO ELEMENTS -->
+    <audio id="neuralSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-click-360.mp3" type="audio/mpeg">
     </audio>
-    <audio id="clickSound" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-cool-interface-click-tone-2568.mp3" type="audio/mpeg">
+    <audio id="quantumSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-sparkle-300.mp3" type="audio/mpeg">
     </audio>
-    <audio id="backgroundMusic" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
+    <audio id="portalSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-sci-fi-whoosh-3006.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Wait for page to load
-        window.addEventListener('load', () => {
-            // Hide page transition
-            setTimeout(() => {
-                document.getElementById('pageTransition').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('pageTransition').style.display = 'none';
-                }, 1000);
-            }, 1500);
-            
-            // Initialize all components
-            initNeuralNetwork();
-            initLiquidBackground();
-            initParticles();
-            initAIBrain();
-            initSoundSystem();
-            initScrollAnimations();
-            initMobileMenu();
-            initInteractiveElements();
-        });
-        
-        // Create Neural Network Background
-        function initNeuralNetwork() {
-            const container = document.getElementById('neuralNetwork');
-            const nodes = 30;
-            const connections = 50;
-            
-            // Create nodes
-            for (let i = 0; i < nodes; i++) {
-                const node = document.createElement('div');
-                node.className = 'node';
-                node.style.left = Math.random() * 100 + '%';
-                node.style.top = Math.random() * 100 + '%';
-                node.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(node);
+        // Initialize Neuro-Synapse Interface
+        class NeuroSynapseInterface {
+            constructor() {
+                this.thoughtCount = 150;
+                this.synapseCount = 80;
+                this.neuronCount = 60;
+                this.isActive = false;
+                this.init();
             }
-            
-            // Create connections
-            for (let i = 0; i < connections; i++) {
-                const connection = document.createElement('div');
-                connection.className = 'connection';
-                connection.style.left = Math.random() * 100 + '%';
-                connection.style.top = Math.random() * 100 + '%';
-                connection.style.width = Math.random() * 200 + 50 + 'px';
-                connection.style.transform = `rotate(${Math.random() * 360}deg)`;
-                connection.style.animationDelay = Math.random() * 3 + 's';
-                container.appendChild(connection);
+
+            init() {
+                this.createThoughtParticles();
+                this.createSynapseConnections();
+                this.createNeuronCluster();
+                this.initCursorSystem();
+                this.initEventListeners();
+                this.activateInterface();
             }
-        }
-        
-        // Create Liquid Background
-        function initLiquidBackground() {
-            const container = document.getElementById('liquidBg');
-            
-            for (let i = 0; i < 3; i++) {
-                const blob = document.createElement('div');
-                blob.className = 'blob';
-                
-                // Position blobs
-                if (i === 0) {
-                    blob.style.top = '10%';
-                    blob.style.left = '10%';
-                } else if (i === 1) {
-                    blob.style.top = '60%';
-                    blob.style.right = '10%';
-                    blob.style.animationDelay = '-5s';
-                } else {
-                    blob.style.bottom = '10%';
-                    blob.style.left = '40%';
-                    blob.style.animationDelay = '-2.5s';
+
+            createThoughtParticles() {
+                const container = document.getElementById('thoughtStream');
+                for (let i = 0; i < this.thoughtCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'thought-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 4 + 's';
+                    particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    particle.style.background = this.getRandomNeuroColor();
+                    container.appendChild(particle);
                 }
-                
-                container.appendChild(blob);
             }
-        }
-        
-        // Create Particles
-        function initParticles() {
-            const container = document.getElementById('particles');
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                container.appendChild(particle);
-            }
-        }
-        
-        // Create AI Brain Animation
-        function initAIBrain() {
-            const container = document.getElementById('aiBrain');
-            const nodes = 20;
-            const connections = 30;
-            
-            // Create brain nodes
-            for (let i = 0; i < nodes; i++) {
-                const node = document.createElement('div');
-                node.className = 'brain-node';
-                
-                // Position nodes in a brain-like pattern
-                const angle = (i / nodes) * Math.PI * 2;
-                const radius = 70 + Math.random() * 30;
-                const x = 100 + Math.cos(angle) * radius;
-                const y = 100 + Math.sin(angle) * radius;
-                
-                node.style.left = x + 'px';
-                node.style.top = y + 'px';
-                node.style.animationDelay = Math.random() * 2 + 's';
-                node.style.background = `hsl(${Math.random() * 60 + 200}, 70%, 60%)`;
-                
-                container.appendChild(node);
-            }
-            
-            // Create connections between nodes
-            for (let i = 0; i < connections; i++) {
-                const connection = document.createElement('div');
-                connection.className = 'brain-connection';
-                
-                // Random start and end points
-                const startX = 50 + Math.random() * 100;
-                const startY = 50 + Math.random() * 100;
-                const endX = 50 + Math.random() * 100;
-                const endY = 50 + Math.random() * 100;
-                
-                const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-                const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
-                
-                connection.style.left = startX + 'px';
-                connection.style.top = startY + 'px';
-                connection.style.width = length + 'px';
-                connection.style.transform = `rotate(${angle}deg)`;
-                connection.style.animationDelay = Math.random() * 3 + 's';
-                connection.style.background = `hsl(${Math.random() * 60 + 270}, 70%, 60%)`;
-                
-                container.appendChild(connection);
-            }
-        }
-        
-        // Initialize Sound System
-        function initSoundSystem() {
-            const hoverSound = document.getElementById('hoverSound');
-            const clickSound = document.getElementById('clickSound');
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            const soundToggle = document.getElementById('soundToggle');
-            
-            let soundsEnabled = false;
-            
-            // Toggle sound
-            soundToggle.addEventListener('click', () => {
-                soundsEnabled = !soundsEnabled;
-                
-                if (soundsEnabled) {
-                    backgroundMusic.volume = 0.3;
-                    backgroundMusic.play();
-                    soundToggle.innerHTML = '🔊';
-                } else {
-                    backgroundMusic.pause();
-                    soundToggle.innerHTML = '🔇';
+
+            createSynapseConnections() {
+                const container = document.getElementById('synapseWeb');
+                for (let i = 0; i < this.synapseCount; i++) {
+                    const synapse = document.createElement('div');
+                    synapse.className = 'synapse';
+                    synapse.style.left = Math.random() * 100 + '%';
+                    synapse.style.top = Math.random() * 100 + '%';
+                    synapse.style.width = Math.random() * 300 + 100 + 'px';
+                    synapse.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    synapse.style.animationDelay = Math.random() * 3 + 's';
+                    synapse.style.background = `linear-gradient(90deg, transparent, ${this.getRandomNeuroColor()}, transparent)`;
+                    container.appendChild(synapse);
                 }
-            });
-            
-            // Add hover sound to interactive elements
-            document.querySelectorAll('.solution-card, .cta-button, .nav-links a').forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    if (soundsEnabled) {
-                        hoverSound.currentTime = 0;
-                        hoverSound.play();
-                    }
-                });
-                
-                element.addEventListener('click', () => {
-                    if (soundsEnabled) {
-                        clickSound.currentTime = 0;
-                        clickSound.play();
-                    }
-                });
-            });
-        }
-        
-        // Initialize Scroll Animations
-        function initScrollAnimations() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const checkVisibility = () => {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    if (elementTop < window.innerHeight - 100) {
-                        element.classList.add('visible');
-                    }
-                });
-            };
-            
-            // Initial check
-            checkVisibility();
-            
-            // Check on scroll
-            window.addEventListener('scroll', checkVisibility);
-        }
-        
-        // Initialize Mobile Menu
-        function initMobileMenu() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                });
-            });
-        }
-        
-        // Initialize Interactive Elements
-        function initInteractiveElements() {
-            // Custom Cursor
-            document.addEventListener('mousemove', (e) => {
-                const cursor = document.querySelector('.cursor');
-                const follower = document.querySelector('.cursor-follower');
-                
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    follower.style.left = e.clientX + 'px';
-                    follower.style.top = e.clientY + 'px';
-                }, 100);
-            });
-            
-            // Cursor effects on interactive elements
-            document.querySelectorAll('.solution-card, .cta-button, .nav-links a').forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    document.querySelector('.cursor').style.transform = 'scale(1.5)';
-                    document.querySelector('.cursor').style.background = 'var(--neon-blue)';
-                });
-                
-                element.addEventListener('mouseleave', () => {
-                    document.querySelector('.cursor').style.transform = 'scale(1)';
-                    document.querySelector('.cursor').style.background = 'transparent';
-                });
-            });
-            
-            // Explore button click
-            document.getElementById('exploreBtn').addEventListener('click', () => {
-                document.getElementById('solutions').scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // Navbar background on scroll
-            window.addEventListener('scroll', () => {
-                const navbar = document.querySelector('.nav-container');
-                if (window.scrollY > 50) {
-                    navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-                    navbar.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
-                } else {
-                    navbar.style.background = 'rgba(10, 10, 10, 0.8)';
-                    navbar.style.boxShadow = 'none';
+            }
+
+            createNeuronCluster() {
+                const container = document.getElementById('neuronCluster');
+                for (let i = 0; i < this.neuronCount; i++) {
+                    const neuron = document.createElement('div');
+                    neuron.className = 'neuron';
+                    neuron.style.left = Math.random() * 100 + '%';
+                    neuron.style.top = Math.random() * 100 + '%';
+                    neuron.style.animationDelay = Math.random() * 2 + 's';
+                    neuron.style.background = this.getRandomNeuroColor();
+                    container.appendChild(neuron);
                 }
-            });
-            
-            // Add click ripple effect
-            document.addEventListener('click', (e) => {
+            }
+
+            initCursorSystem() {
+                const cursor = document.getElementById('neuroCursor');
+                const particlesContainer = document.getElementById('cursorParticles');
+                
+                // Create cursor particles
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'cursor-particle';
+                    particle.style.animationDelay = (i * 0.25) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+
+                // Mouse movement
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+                // Click effects
+                document.addEventListener('click', (e) => {
+                    this.createNeuralRipple(e.clientX, e.clientY);
+                    this.playSound('neuralSound');
+                });
+            }
+
+            createNeuralRipple(x, y) {
                 const ripple = document.createElement('div');
                 ripple.style.position = 'fixed';
-                ripple.style.left = e.clientX + 'px';
-                ripple.style.top = e.clientY + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
                 ripple.style.width = '0px';
                 ripple.style.height = '0px';
-                ripple.style.border = '2px solid var(--neon-blue)';
+                ripple.style.border = `2px solid ${this.getRandomNeuroColor()}`;
                 ripple.style.borderRadius = '50%';
-                ripple.style.animation = 'ripple 0.6s linear';
-                ripple.style.zIndex = '9999';
+                ripple.style.animation = 'neural-ripple 1s linear';
+                ripple.style.zIndex = '9998';
                 document.body.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-            
-            // Add ripple animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple {
-                    to {
-                        width: 200px;
-                        height: 200px;
-                        opacity: 0;
-                        left: calc(50% - 100px);
-                        top: calc(50% - 100px);
-                    }
+
+                setTimeout(() => ripple.remove(), 1000);
+            }
+
+            initEventListeners() {
+                // Quantum command interactions
+                document.getElementById('initiateAI').addEventListener('click', () => {
+                    this.initiateAIConsciousness();
+                    this.playSound('quantumSound');
+                });
+
+                document.getElementById('neuralUpload').addEventListener('click', () => {
+                    this.neuralUploadSequence();
+                    this.playSound('portalSound');
+                });
+
+                document.getElementById('quantumLeap').addEventListener('click', () => {
+                    this.quantumLeapEffect();
+                    this.playSound('quantumSound');
+                });
+
+                document.getElementById('synapseConnect').addEventListener('click', () => {
+                    this.synapseConnectionStorm();
+                    this.playSound('neuralSound');
+                });
+
+                // Activation zone interactions
+                document.querySelectorAll('.activation-zone').forEach(zone => {
+                    zone.addEventListener('mouseenter', () => {
+                        this.activateNeuralZone(zone);
+                    });
+                });
+            }
+
+            initiateAIConsciousness() {
+                // Create consciousness burst
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        this.createConsciousnessParticle();
+                    }, i * 50);
                 }
-            `;
-            document.head.appendChild(style);
+
+                // Update quantum state
+                this.updateQuantumState('AI CONSCIOUSNESS: ACTIVATED');
+            }
+
+            neuralUploadSequence() {
+                // Create upload spiral
+                this.createUploadSpiral();
+                
+                // Update quantum state
+                this.updateQuantumState('NEURAL UPLOAD: IN PROGRESS');
+            }
+
+            quantumLeapEffect() {
+                // Create dimensional rift
+                this.createDimensionalRift();
+                
+                // Update quantum state
+                this.updateQuantumState('QUANTUM STATE: ENTANGLED');
+            }
+
+            synapseConnectionStorm() {
+                // Create synapse storm
+                this.createSynapseStorm();
+                
+                // Update quantum state
+                this.updateQuantumState('SYNAPSE FIRING: 100%');
+            }
+
+            activateNeuralZone(zone) {
+                zone.style.background = 'radial-gradient(circle, rgba(0, 255, 170, 0.3) 0%, transparent 70%)';
+                zone.style.boxShadow = '0 0 50px var(--dendrite-green)';
+                
+                setTimeout(() => {
+                    zone.style.background = 'radial-gradient(circle, rgba(0, 255, 170, 0.1) 0%, transparent 70%)';
+                    zone.style.boxShadow = 'none';
+                }, 1000);
+            }
+
+            createConsciousnessParticle() {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = this.getRandomNeuroColor();
+                particle.style.borderRadius = '50%';
+                particle.style.animation = `consciousness-burst 2s linear`;
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 2000);
+            }
+
+            createUploadSpiral() {
+                // Implementation for upload spiral effect
+                console.log('Creating upload spiral...');
+            }
+
+            createDimensionalRift() {
+                // Implementation for dimensional rift
+                console.log('Creating dimensional rift...');
+            }
+
+            createSynapseStorm() {
+                // Implementation for synapse storm
+                console.log('Creating synapse storm...');
+            }
+
+            updateQuantumState(message) {
+                const states = document.querySelectorAll('.q-state');
+                if (states.length > 0) {
+                    states[states.length - 1].textContent = message;
+                }
+            }
+
+            playSound(soundId) {
+                const sound = document.getElementById(soundId);
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play();
+                }
+            }
+
+            getRandomNeuroColor() {
+                const colors = [
+                    'var(--neural-blue)',
+                    'var(--synapse-purple)',
+                    'var(--axon-pink)',
+                    'var(--dendrite-green)',
+                    'var(--neuro-yellow)'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            activateInterface() {
+                this.isActive = true;
+                
+                // Add neural ripple animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes neural-ripple {
+                        to {
+                            width: 500px;
+                            height: 500px;
+                            opacity: 0;
+                            left: calc(50% - 250px);
+                            top: calc(50% - 250px);
+                        }
+                    }
+                    
+                    @keyframes consciousness-burst {
+                        0% {
+                            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translate(
+                                ${Math.random() * 200 - 100}px, 
+                                ${Math.random() * 200 - 100}px
+                            ) scale(3) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
         }
+
+        // Initialize the interface when page loads
+        window.addEventListener('load', () => {
+            new NeuroSynapseInterface();
+        });
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
     </script>
 </body>
 </html>
